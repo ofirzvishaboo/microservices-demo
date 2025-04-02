@@ -156,6 +156,9 @@ services:
   user-db:
     image: weaveworksdemos/user-db:0.4.0
     hostname: user-db
+    # Added ports for testing the API
+    ports:
+      - "27017:27017"
     restart: always
     cap_drop:
       - all

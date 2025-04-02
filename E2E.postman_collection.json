@@ -1,0 +1,294 @@
+{
+	"info": {
+		"_postman_id": "3ce230c7-5515-4a22-aeb6-32d7d00d22a1",
+		"name": "E2E",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39715864"
+	},
+	"item": [
+		{
+			"name": "login-user Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Login Page OK\", () => pm.response.to.have.status(200));",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "ofir",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost/login",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post-item Copy",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{authToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"3395a43e-2d88-40de-b95f-e00e1502085b\",\n    \"itemId\": \"3395a43e-2d88-40de-b95f-e00e1502085b\",\n    \"quantity\": 2\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost/cart",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"cart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-cart Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost/cart",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"cart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post-card Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Payment added\", () => pm.response.to.have.status(200));",
+							"pm.environment.set(\"paymentId\", pm.response.json().paymentId);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{authToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"longNum\": \"4111111111111111\",\n    \"expires\": \"12/25\",\n    \"ccv\": \"123\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost/cards",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"cards"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post_address Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Address added\", () => pm.response.to.have.status(200));",
+							"pm.environment.set(\"addressId\", pm.response.json().addressId);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{authToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"number\": \"12\",\n    \"street\": \"QA Street\",\n    \"city\": \"Testville\",\n    \"postcode\": \"12345\",\n    \"country\": \"Testland\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost/addresses",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"addresses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getOrder",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost/orders",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post-order Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Order placed\", () => pm.response.to.have.status(201));",
+							"const res = pm.response.json();",
+							"pm.expect(res.id).to.exist;",
+							"pm.environment.set(\"orderId\", res.id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost/orders",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
